@@ -48,13 +48,71 @@ test ('Clicking on the date box"', async ({ page }) => {
     await input.fill ('test'); 
     await expect (input).toHaveValue ('test');
 
-   // User clicks on the "Create!" button
+   // User clicks on the "Create!" button and the to do is added
         const createButton = page.getByLabel('Create');
         await createButton.click();
         await expect (createButton).toBeVisible();
         const list = page.getByRole('list');
         await expect (list).toBeVisible();
         await expect (list).toHaveText('test2021-12-31🗑️');
+
         
+
+});
+
+// delete to do list
+
+test ('delete to do list"', async ({ page }) => {
+
+ await page.goto('http://localhost:3000');
+    const inputDate = page.getByLabel('Completion Date');
+    await expect (inputDate).toBeVisible();
+    await inputDate.fill ('2021-12-31');
+    await expect (inputDate).toHaveValue ('2021-12-31');
+    
+    const input = page.getByLabel(`Task`)
+    await input.fill ('test'); 
+    await expect (input).toHaveValue ('test');
+
+    const createButton = page.getByLabel('Create');
+    await createButton.click();
+    await expect (createButton).toBeVisible();
+    const list = page.getByRole('list');
+    await expect (list).toBeVisible();
+    await expect (list).toHaveText('test2021-12-31🗑️');
+
+
+    // delete part
+    
+    const deleteButton = page.getByText('🗑️');
+    await deleteButton.click();
+    await expect (deleteButton).toBeHidden();
+});
+
+
+test ('refresh the to do list and making sure the old to-dos are still saved', async ({ page }) => {
+
+    await page.goto('http://localhost:3000');
+    const inputDate = page.getByLabel('Completion Date');
+    await expect (inputDate).toBeVisible();
+    await inputDate.fill ('2021-12-31');
+    await expect (inputDate).toHaveValue ('2021-12-31');
+    
+    const input = page.getByLabel(`Task`)
+    await input.fill ('test'); 
+    await expect (input).toHaveValue ('test');
+
+    const createButton = page.getByLabel('Create');
+    await createButton.click();
+    await expect (createButton).toBeVisible();
+    const list = page.getByRole('list');
+    await expect (list).toBeVisible();
+    await expect (list).toHaveText('test2021-12-31🗑️');
+
+    // refresh part
+    await page.reload();
+    await expect (list).toHaveText('test2021-12-31🗑️');
+
+
 
 });
