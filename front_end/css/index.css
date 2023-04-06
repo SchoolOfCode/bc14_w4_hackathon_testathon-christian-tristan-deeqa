@@ -65,8 +65,9 @@ section {
 }
 
 #todos {
-  display: grid;
+  display: flex;
   gap: 0.5rem;
+  padding: 0.5rem;
 }
 
 #todos li {

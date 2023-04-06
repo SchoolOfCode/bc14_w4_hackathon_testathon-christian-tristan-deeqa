@@ -113,6 +113,4 @@ test ('refresh the to do list and making sure the old to-dos are still saved', a
     await page.reload();
     await expect (list).toHaveText('test2021-12-31🗑️');
 
-
-
 });
