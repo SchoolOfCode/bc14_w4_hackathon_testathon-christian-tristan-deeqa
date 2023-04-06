@@ -70,8 +70,8 @@ function createElementForTodoItem(todoItem) {
   const task = createElementForTask(todoItem.task);
   const completionDate = createElementForCompletionDate(todoItem.completionDate);
   const deleteButton = createDeleteButtonForTodoItem(todoItem.id);
-
-  li.append(task, completionDate, deleteButton);
+  const priorityButton = createPriorityButton(todoItem.id);
+  li.append(task, completionDate, deleteButton, priorityButton);
   return li;
 }
 
@@ -141,4 +141,19 @@ function createDeleteButtonForTodoItem(todoId) {
   deleteButton.addEventListener("click", handleClick);
 
   return deleteButton;
+}
+
+function createPriorityButton(todoId) {
+  const priorityButton = document.createElement("button");
+  priorityButton.textContent = "🏳️";
+  priorityButton.title = "Make this item a priority";
+
+  async function handleClick() {
+    priorityButton.textContent = "🏴";
+    priorityButton.title = "This item is a priority";
+  }
+
+  priorityButton.addEventListener("click", handleClick);
+
+  return priorityButton;
 }
